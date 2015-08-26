@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/httpasyncclient-4.0-beta4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/httpclient-4.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/httpcore-nio-4.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/httpmime-4.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/java-json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Martina/workspace/HttpComponents - Prueba/unirest-java-1.4.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/OpenCV-3.0.0"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
