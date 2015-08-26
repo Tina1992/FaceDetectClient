@@ -40,7 +40,7 @@ public class main {
 		
 		Parser parser=new Parser("Aaron_Eckhart_0001.jpg");
 		parser.parse(response1);*/
-		FaceRect f=new FaceRect("Aaron_Sorkin_0001.jpg");
+		FaceRect f=new FaceRect("Aaron_Eckhart_0001.jpg");
 		f.post();
 		f.parse();
 		System.out.println("Precisión:" +f.getPrecision());

@@ -104,9 +104,6 @@ public class ImageProc {
 		}
 	}
 
-	public Vector<JSONObject> getFaces() {
-		return caras;
-	}
 
 	public Vector<Rect> getRealFacesPosition() {
 		CascadeClassifier faceDetector = new CascadeClassifier(
