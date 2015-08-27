@@ -15,59 +15,43 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
+
 
 public class FaceRect extends APIAbs {
-
 	private File img;
-	public ImageProc imageproc;
 	private HttpResponse<JsonNode> response;
 
-	public FaceRect(String path) {
+	public FaceRect(String path) { //LES VA A LLEGAR DIRECTAMENTE EL FILE (IMG)
 		img = new File(path);
 		imageproc = new ImageProc(path);
 	}
 
-	public void post() throws UnirestException, JSONException {
-		response = Unirest
-				.post("https://apicloud-facerect.p.mashape.com/process-file.json")
-				.header("X-Mashape-Key",
-						"kCKZDyhuAxmsh2l2E7GXVfOLFe9hp1w77PbjsnmUiFR69J94RG")
-				.field("image", img).asJson();
+	public HttpResponse<JsonNode> post() throws UnirestException, JSONException {
+		File img=new File("C:/Users/marmota/workspace/HttpComponents - Prueba/personas.png");
+		
+		response = Unirest.post("https://apicloud-facerect.p.mashape.com/process-file.json")
+		.header("X-Mashape-Key", "kCKZDyhuAxmsh2l2E7GXVfOLFe9hp1w77PbjsnmUiFR69J94RG")
+		.field("image", img)
+		.asJson();
+			
+		return response; 	
 	}
 
 	public void parse() throws JSONException {
-		try {
-			JSONObject obj = response.getBody().getObject();
-			// System.out.println(obj);
-			JSONArray faces = obj.getJSONArray("faces");
-			int cantfaces = faces.length(); // TIRA BIEN LA CANTIDAD DE ROSTROS
-											// ENCONTRADOS. CON ESTO ITERAR.
-			// System.out.println(faces);
-			// System.out.println(cantfaces);
+		try
+		{
+			JSONObject 	obj= response.getBody().getObject();
+			JSONArray faces= (JSONArray) obj.get("faces");
+			
+			int cantfaces=faces.length();
+			for(int i=0;i<cantfaces;i++)
+				imageproc.drawRectangles(faces.getJSONObject(i));
+							
 
-			// FOR CADA JSONObject QUE HAYA...
-			for (int i = 0; i < cantfaces; i++) {
-				JSONObject faces1 = obj.getJSONArray("faces").getJSONObject(i);
-				imageproc.drawRectangles(faces1);
-			}
-			// @SuppressWarnings("unused")
-			// boolean i = imageproc.matToBufferedImage();
-
-			// imageproc.getFacesPosition();
-			// TIRA:{"orientation":"frontal","height":45,"width":45,"y":22,"x":396}
-
-			// imageproc.drawRectangles(faces1);
-
-			// JSONObject faces2 = obj.getJSONArray("faces").getJSONObject(1);
-			// TIRA:{"orientation":"frontal","height":49,"width":49,"y":31,"x":78}
-			// imageproc.drawRectangles(faces2);
-
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
+			
+		} catch(ParseException e) {
+            e.printStackTrace(); }	
+		
 	}
 
 	// Anda mal para más de una cara
