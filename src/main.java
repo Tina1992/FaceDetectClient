@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.opencv.core.Core;
 
 import APIs.FaceRect;
+import APIs.SkyBiometry_FaceDetection;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
@@ -40,11 +41,13 @@ public class main {
 		
 		Parser parser=new Parser("Aaron_Eckhart_0001.jpg");
 		parser.parse(response1);*/
-		FaceRect f=new FaceRect("Aaron_Eckhart_0001.jpg");
+		SkyBiometry_FaceDetection f=new SkyBiometry_FaceDetection(img5);
+		f.addImage(img1);
 		f.post();
 		f.parse();
 		System.out.println("Precisión:" +f.getPrecision());
-		f.imageproc.displayImage();
+		System.out.println("Duración:"+(f.getTimeRequest()/1000000000));
+		f.display();
 
 		// INFORMACION (USANDO LAS JPG QUE ESTAN EN EL PROYECTO)
 		// 80 REQUEST: TARDA 1MIN, 11SEG, 78MILESIMAS.

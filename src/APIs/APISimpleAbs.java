@@ -10,15 +10,20 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-public abstract class APIAbs {
+public abstract class APISimpleAbs extends APIAbs {
 
+	public ImageProc imageproc; //Inicializada en todos los hijos con el path de la imagen
+	
+	@Override
 	public abstract HttpResponse<JsonNode> post() throws UnirestException, JSONException;
 
-	public abstract void parse() throws JSONException;
+	@Override
+	public abstract void parse() throws JSONException ;
 
-	public abstract void display();
-	
-	public abstract float getPrecision() throws JSONException;
-	
-	public abstract float getTimeRequest();
+	@Override
+	public void display() {
+		// TODO Auto-generated method stub
+		imageproc.displayImage();
+	}
+
 }

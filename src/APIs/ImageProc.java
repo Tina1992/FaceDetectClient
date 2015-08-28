@@ -38,20 +38,18 @@ public class ImageProc {
 		caras = new Vector<JSONObject>();
 	}
 
-	// ESTE METODO ANDA BIEN PARA EL PARSER DE FACERECT.
 	public void drawRectangles(JSONObject obj) throws JSONException {
 		caras.add(obj);
-		int x = (int) obj.get("x");
-		int y = (int) obj.get("y");
-		int height = (int) obj.get("height");
-		int width = (int) obj.get("width");
+		double x = (double) obj.get("x");
+		double y = (double) obj.get("y");
+		double height = (double) obj.get("height");
+		double width = (double) obj.get("width");
 		Imgproc.rectangle(image, new Point(x, y), new Point(x + width, y
 				+ height), new Scalar(0, 255, 0), 2); // EL 2 FINAL ES EL GROSOR
 														// DEL RECTANGULO
-
 	}
 
-	public void savedImage(Mat image) {
+	public void saveImage(Mat image) {
 		String filename = "faceDetection.png";
 		Imgcodecs.imwrite(filename, image);
 	}
@@ -104,7 +102,6 @@ public class ImageProc {
 		}
 	}
 
-
 	public Vector<Rect> getRealFacesPosition() {
 		CascadeClassifier faceDetector = new CascadeClassifier(
 				"haarcascade_frontalface_default.xml");
@@ -128,6 +125,51 @@ public class ImageProc {
 			vector.add(r);
 		}
 		return vector;
+	}
+	
+	public float getPrecision() throws JSONException {
+		Vector<Rect> faces = getRealFacesPosition();
+		Vector<Rect> APIfaces = getAPIFacesPosition();
+		float res = 0;
+		for (Rect r : faces) {
+			float f = 0;
+			for (Rect Ar : APIfaces) {
+				float f1 = getPrecisionUnitaria(r, Ar);
+				if (f1 > f)
+					f = f1;
+			}
+			res += f;
+			System.out.println(res);
+		}
+		return (res / faces.size());
+	}
+
+	private float getPrecisionUnitaria(Rect r, Rect ar) {
+		double total = r.area();
+		double inter = 0;
+		int x1= maximo(r.x, ar.x);
+		int y1= maximo(r.y, ar.y);
+		int x2= minimo(r.x+r.width, ar.x+ar.width);
+		int y2= minimo(r.y+r.height, ar.y+ar.height);
+		Rect Nr= new Rect(new Point(x1, y1), new Point(x2,y2));
+		if ((r.contains(new Point(x1, y1))) && (r.contains(new Point(x2, y2))))
+			inter=Nr.area();
+		System.out.println("Rectangulo total:"+r);
+		System.out.println("Segundo rectangulo:"+ar);
+		System.out.println("Rectangulo interseccion:"+Nr);
+		return (float) (inter / total);
+	}
+
+	private int minimo(int i, int j) {
+		if (i<j)
+			return i;
+		return j;
+	}
+
+	private int maximo(int x, int x2) {
+		if (x>x2)
+			return x;
+		return x2;
 	}
 
 }
