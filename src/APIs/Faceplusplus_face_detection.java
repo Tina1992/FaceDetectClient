@@ -9,7 +9,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-//IMPORTANTE: ESTA API SOLO DETECTA DE A UNA IMAGEN.
+//IMPORTANTE: ESTA API SOLO DETECTA DE A UNA IMAGEN
 
 public class Faceplusplus_face_detection extends APIAbs{
 	private HttpResponse<JsonNode> response;
